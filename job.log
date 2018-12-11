@@ -1,0 +1,49 @@
+2018-12-11 12:02:21.984887: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-12-11 12:02:22.006659: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2018-12-11 12:02:22.006685: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      
+Tensor("fully_connected_1/Softmax:0", shape=(1, 3), dtype=float32, device=/device:GPU:*)
+Traceback (most recent call last):
+  File "model_d_test/birads_prediction.py", line 108, in <module>
+    inference(parameters_)
+  File "model_d_test/birads_prediction.py", line 42, in inference
+    session.run(tf.global_variables_initializer())
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 929, in run
+    run_metadata_ptr)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 1152, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 1328, in _do_run
+    run_metadata)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 1348, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.InvalidArgumentError: Cannot assign a device for operation random_normal/RandomStandardNormal: Operation was explicitly assigned to /device:GPU:* but available devices are [ /job:localhost/replica:0/task:0/device:CPU:0, /job:localhost/replica:0/task:0/device:XLA_CPU:0, /job:localhost/replica:0/task:0/device:XLA_GPU:0 ]. Make sure the device specification refers to a valid device.
+	 [[node random_normal/RandomStandardNormal (defined at /test_job/model_d_test/layers_cc.py:97)  = RandomStandardNormal[T=DT_INT32, dtype=DT_FLOAT, seed=0, seed2=0, _device="/device:GPU:*"](Shape)]]
+
+Caused by op u'random_normal/RandomStandardNormal', defined at:
+  File "model_d_test/birads_prediction.py", line 108, in <module>
+    inference(parameters_)
+  File "model_d_test/birads_prediction.py", line 30, in inference
+    model_cc = models_cc.BaselineBreastModel(x, nodropout_probability, gaussian_noise_std)
+  File "/test_job/model_d_test/model_cc.py", line 55, in __init__
+    self.y_prediction_birads = baseline(x, view_type,  nodropout_probability, gaussian_noise_std)
+  File "/test_job/model_d_test/model_cc.py", line 10, in baseline
+    x = layers.all_views_gaussian_noise_layer(x, gaussian_noise_std)
+  File "/test_job/model_d_test/layers_cc.py", line 107, in all_views_gaussian_noise_layer
+    output = gaussian_noise_layer(input_layer, std)
+  File "/test_job/model_d_test/layers_cc.py", line 97, in gaussian_noise_layer
+    noise = tf.random_normal(tf.shape(input_layer), mean=0.0, stddev=std, dtype=tf.float32)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/random_ops.py", line 78, in random_normal
+    shape_tensor, dtype, seed=seed1, seed2=seed2)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/gen_random_ops.py", line 649, in random_standard_normal
+    seed2=seed2, name=name)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/framework/op_def_library.py", line 787, in _apply_op_helper
+    op_def=op_def)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/util/deprecation.py", line 488, in new_func
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/framework/ops.py", line 3274, in create_op
+    op_def=op_def)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/framework/ops.py", line 1770, in __init__
+    self._traceback = tf_stack.extract_stack()
+
+InvalidArgumentError (see above for traceback): Cannot assign a device for operation random_normal/RandomStandardNormal: Operation was explicitly assigned to /device:GPU:* but available devices are [ /job:localhost/replica:0/task:0/device:CPU:0, /job:localhost/replica:0/task:0/device:XLA_CPU:0, /job:localhost/replica:0/task:0/device:XLA_GPU:0 ]. Make sure the device specification refers to a valid device.
+	 [[node random_normal/RandomStandardNormal (defined at /test_job/model_d_test/layers_cc.py:97)  = RandomStandardNormal[T=DT_INT32, dtype=DT_FLOAT, seed=0, seed2=0, _device="/device:GPU:*"](Shape)]]
+
