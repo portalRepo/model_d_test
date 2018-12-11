@@ -13,7 +13,7 @@ import glob
 def inference(parameters, verbose=True):
 
     model_path = config.model_ckpts["saved_model"]
-    device_type = "gpu"
+    device_type = "cpu"
     gpu_number = 0
     image_path = config.folder_path["inference_image"]
 
