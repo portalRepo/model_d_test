@@ -1,0 +1,11 @@
+2019-03-01 08:51:50.594903: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-03-01 08:51:50.616847: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-03-01 08:51:50.616874: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      
+2019-03-01 08:51:50.684848: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-03-01 08:51:50.684876: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      
+Tensor("fully_connected_1/Softmax:0", shape=(1, 3), dtype=float32, device=/device:CPU:*)
+('View Type: ', 'CC')
+BI-RADS prediction:
+	BI-RADS 0:	1.0
+	BI-RADS 1:	3.151718e-18
+	BI-RADS 2:	2.1522407e-16
